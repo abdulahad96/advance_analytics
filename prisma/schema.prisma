@@ -6,6 +6,25 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+model User {
+  id                        String                     @id @default(uuid())
+  createdAt                 DateTime                   @default(now())
+  updatedAt                 DateTime                   @updatedAt
+  email                     String                     @unique
+  phone                     String                     
+  firstName                 String @db.VarChar(240)                    
+  lastName                  String @db.VarChar(240)
+  userName                  String? @db.VarChar(240)
+  bio                       String?                    
+  salt                      String?
+  blocked                   Boolean                    @default(true)
+  emailVerified             Boolean                    @default(false)
+  dob                       DateTime                   
+  address                   String?
+  profile_img               String?                     
+  gcm_id                    String?                     
+  platform                  String?
 }
